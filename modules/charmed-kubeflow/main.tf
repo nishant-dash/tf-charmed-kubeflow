@@ -22,19 +22,6 @@ resource "juju_application" "grafana-agent-kf" {
   expose {}
 }
 
-resource "juju_integration" "ckf-grafana-agent" {
-  model = var.juju_model_name
-
-  application {
-    name     = juju_application.microk8s.name
-    endpoint = "cos-agent"
-  }
-
-  application {
-    name     = juju_application.grafana-agent.name
-    endpoint = "cos-agent"
-  }
-}
 
 # Charmed Kubeflow componenets
 resource "juju_application" "admission-webhook" {
