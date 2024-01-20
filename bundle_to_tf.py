@@ -113,7 +113,7 @@ def generate_main(bundle: dict = {}):
         params = {
             "app_name": app,
             "charm": info["charm"],
-            "trust": str(info["trust"]) if "trust" in info else "false",
+            "trust": str(info["trust"]).lower() if "trust" in info else "false",
             "channel_var": app.replace("-", "_"),
             "scale": info["scale"],
         }

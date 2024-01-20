@@ -1,42 +1,3 @@
-# Charmed Kubeflow
-resource "juju_model" "kubeflow" {
-  name = "kubeflow"
-
-  cloud {
-    name = var.kubeflow_cloud
-  }
-}
-
-# Grafana-agent-k8s
-resource "juju_application" "grafana-agent-kf" {
-  name  = "grafana-agent-kf"
-  model = var.juju_model_name
-  trust = true
-
-  charm {
-    name    = "grafana-agent-k8s"
-    channel = var.grafana_agent_k8s_charm_channel
-  }
-
-  units = 1
-  expose {}
-}
-
-resource "juju_integration" "ckf-grafana-agent" {
-  model = var.juju_model_name
-
-  application {
-    name     = juju_application.microk8s.name
-    endpoint = "cos-agent"
-  }
-
-  application {
-    name     = juju_application.grafana-agent.name
-    endpoint = "cos-agent"
-  }
-}
-
-# Charmed Kubeflow componenets
 resource "juju_application" "admission-webhook" {
   name  = "admission-webhook"
   model = var.juju_model_name
@@ -47,7 +8,7 @@ resource "juju_application" "admission-webhook" {
     channel = var.admission_webhook_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "argo-controller" {
@@ -60,7 +21,7 @@ resource "juju_application" "argo-controller" {
     channel = var.argo_controller_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "dex-auth" {
@@ -73,7 +34,7 @@ resource "juju_application" "dex-auth" {
     channel = var.dex_auth_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "envoy" {
@@ -86,7 +47,7 @@ resource "juju_application" "envoy" {
     channel = var.envoy_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "istio-ingressgateway" {
@@ -99,7 +60,7 @@ resource "juju_application" "istio-ingressgateway" {
     channel = var.istio_ingressgateway_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "istio-pilot" {
@@ -112,7 +73,7 @@ resource "juju_application" "istio-pilot" {
     channel = var.istio_pilot_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "jupyter-controller" {
@@ -125,7 +86,7 @@ resource "juju_application" "jupyter-controller" {
     channel = var.jupyter_controller_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "jupyter-ui" {
@@ -138,7 +99,7 @@ resource "juju_application" "jupyter-ui" {
     channel = var.jupyter_ui_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "katib-controller" {
@@ -151,7 +112,7 @@ resource "juju_application" "katib-controller" {
     channel = var.katib_controller_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "katib-db" {
@@ -164,7 +125,7 @@ resource "juju_application" "katib-db" {
     channel = var.katib_db_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "katib-db-manager" {
@@ -177,7 +138,7 @@ resource "juju_application" "katib-db-manager" {
     channel = var.katib_db_manager_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "katib-ui" {
@@ -190,7 +151,7 @@ resource "juju_application" "katib-ui" {
     channel = var.katib_ui_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kfp-api" {
@@ -203,7 +164,7 @@ resource "juju_application" "kfp-api" {
     channel = var.kfp_api_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kfp-db" {
@@ -216,7 +177,7 @@ resource "juju_application" "kfp-db" {
     channel = var.kfp_db_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kfp-metadata-writer" {
@@ -229,7 +190,7 @@ resource "juju_application" "kfp-metadata-writer" {
     channel = var.kfp_metadata_writer_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kfp-persistence" {
@@ -242,7 +203,7 @@ resource "juju_application" "kfp-persistence" {
     channel = var.kfp_persistence_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kfp-profile-controller" {
@@ -255,7 +216,7 @@ resource "juju_application" "kfp-profile-controller" {
     channel = var.kfp_profile_controller_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kfp-schedwf" {
@@ -268,7 +229,7 @@ resource "juju_application" "kfp-schedwf" {
     channel = var.kfp_schedwf_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kfp-ui" {
@@ -281,7 +242,7 @@ resource "juju_application" "kfp-ui" {
     channel = var.kfp_ui_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kfp-viewer" {
@@ -294,7 +255,7 @@ resource "juju_application" "kfp-viewer" {
     channel = var.kfp_viewer_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kfp-viz" {
@@ -307,7 +268,7 @@ resource "juju_application" "kfp-viz" {
     channel = var.kfp_viz_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "knative-eventing" {
@@ -320,7 +281,7 @@ resource "juju_application" "knative-eventing" {
     channel = var.knative_eventing_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "knative-operator" {
@@ -333,7 +294,7 @@ resource "juju_application" "knative-operator" {
     channel = var.knative_operator_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "knative-serving" {
@@ -346,7 +307,7 @@ resource "juju_application" "knative-serving" {
     channel = var.knative_serving_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kserve-controller" {
@@ -359,7 +320,7 @@ resource "juju_application" "kserve-controller" {
     channel = var.kserve_controller_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kubeflow-dashboard" {
@@ -372,7 +333,7 @@ resource "juju_application" "kubeflow-dashboard" {
     channel = var.kubeflow_dashboard_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kubeflow-profiles" {
@@ -385,7 +346,7 @@ resource "juju_application" "kubeflow-profiles" {
     channel = var.kubeflow_profiles_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kubeflow-roles" {
@@ -398,7 +359,7 @@ resource "juju_application" "kubeflow-roles" {
     channel = var.kubeflow_roles_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "kubeflow-volumes" {
@@ -411,7 +372,7 @@ resource "juju_application" "kubeflow-volumes" {
     channel = var.kubeflow_volumes_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "metacontroller-operator" {
@@ -424,7 +385,7 @@ resource "juju_application" "metacontroller-operator" {
     channel = var.metacontroller_operator_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "mlmd" {
@@ -437,7 +398,7 @@ resource "juju_application" "mlmd" {
     channel = var.mlmd_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "minio" {
@@ -450,7 +411,7 @@ resource "juju_application" "minio" {
     channel = var.minio_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "oidc-gatekeeper" {
@@ -463,7 +424,7 @@ resource "juju_application" "oidc-gatekeeper" {
     channel = var.oidc_gatekeeper_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "pvcviewer-operator" {
@@ -476,7 +437,7 @@ resource "juju_application" "pvcviewer-operator" {
     channel = var.pvcviewer_operator_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "seldon-controller-manager" {
@@ -489,7 +450,7 @@ resource "juju_application" "seldon-controller-manager" {
     channel = var.seldon_controller_manager_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "tensorboard-controller" {
@@ -502,7 +463,7 @@ resource "juju_application" "tensorboard-controller" {
     channel = var.tensorboard_controller_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "tensorboards-web-app" {
@@ -515,7 +476,7 @@ resource "juju_application" "tensorboards-web-app" {
     channel = var.tensorboards_web_app_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_application" "training-operator" {
@@ -528,18 +489,18 @@ resource "juju_application" "training-operator" {
     channel = var.training_operator_channel
   }
 
-  units = 1
+  units     = 1
 }
 
 resource "juju_integration" "argo-controller-minio" {
   model = var.juju_model_name
 
   application {
-    name = juju_application.argo-controller.name
+    name     = juju_application.argo-controller.name
   }
 
   application {
-    name = juju_application.minio.name
+    name     = juju_application.minio.name
   }
 }
 
@@ -869,11 +830,11 @@ resource "juju_integration" "kubeflow-profiles-kubeflow-dashboard" {
   model = var.juju_model_name
 
   application {
-    name = juju_application.kubeflow-profiles.name
+    name     = juju_application.kubeflow-profiles.name
   }
 
   application {
-    name = juju_application.kubeflow-dashboard.name
+    name     = juju_application.kubeflow-dashboard.name
   }
 }
 
