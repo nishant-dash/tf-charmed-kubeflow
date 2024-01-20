@@ -7,6 +7,11 @@ variable "juju_model_name" {
   default     = "kubeflow"
 }
 
+variable "kubeflow_cloud" {
+  description = "K8s cloud to use for Kubeflow"
+  type        = string
+}
+
 variable "admission_webhook_channel" {
   description = "Charm channel of admission-webhook"
   type        = string

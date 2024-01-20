@@ -1,3 +1,12 @@
+# Charmed Kubeflow
+resource "juju_model" "kubeflow" {
+  name = "kubeflow"
+
+  cloud {
+    name = var.kubeflow_cloud
+  }
+}
+
 # Grafana-agent-k8s
 resource "juju_application" "grafana-agent-kf" {
   name  = "grafana-agent-kf"
@@ -27,7 +36,7 @@ resource "juju_integration" "ckf-grafana-agent" {
   }
 }
 
-# Charmed Kubeflow
+# Charmed Kubeflow componenets
 resource "juju_application" "admission-webhook" {
   name  = "admission-webhook"
   model = var.juju_model_name
