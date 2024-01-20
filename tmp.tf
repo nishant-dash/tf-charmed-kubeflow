@@ -1,38 +1,4 @@
-# Charmed Kubeflow
-resource "juju_model" "kubeflow" {
-  name = "kubeflow"
 
-  cloud {
-    name = var.kubeflow_cloud
-  }
-
-  config = {
-    default-series = var.kubeflow_model_series
-  }
-
-  credential = var.kubeflow_cloud
-}
-
-# Grafana-agent-k8s
-resource "juju_application" "grafana-agent-kf" {
-  name  = "grafana-agent-kf"
-  model = var.juju_model_name
-  trust = true
-
-  charm {
-    name    = "grafana-agent-k8s"
-    channel = var.grafana_agent_k8s_charm_channel
-  }
-
-  units = 1
-
-  depends_on = [
-    juju_model.kubeflow
-  ]
-}
-
-
-# Charmed Kubeflow componenets
 resource "juju_application" "admission-webhook" {
   name  = "admission-webhook"
   model = var.juju_model_name

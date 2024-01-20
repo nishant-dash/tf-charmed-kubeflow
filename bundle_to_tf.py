@@ -1,4 +1,5 @@
 import yaml
+import json
 
 # procs
 import requests
@@ -24,6 +25,28 @@ resource "juju_application" "{app_name}" {{
   }}
 
   units     = {scale}
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
+}}"""
+
+TEMPLATE_APPLICATION_WITH_CONFIG = """
+resource "juju_application" "{app_name}" {{
+  name  = "{app_name}"
+  model = var.juju_model_name
+  trust = {trust}
+
+  charm {{
+    name    = "{charm}"
+    channel = var.{channel_var}_channel
+  }}
+
+  units     = {scale}
+
+  config = {{
+    {config}
+  }}
 
   depends_on = [
     juju_model.kubeflow
@@ -85,7 +108,7 @@ def download_bundle(channel_string: str = None) -> {}:
     else:
         url = f"{KF_SOURCE}/raw/main/releases/{version}/{channel}/kubeflow/bundle.yaml"
     response = requests.get(url)
-    console.print(f"Downloading kf {channel_string} bundle...")
+    # console.print(f"Downloading kf {channel_string} bundle...")
     if response.status_code != HTTP_OK:
         response.raise_for_status()
         console.print_exception(
@@ -110,10 +133,17 @@ def generate_versions(bundle: dict = {}):
         console.print(TEMPLATE_VERSION.format(**params))
 
 
-def generate_main(bundle: dict = {}):
-    applications = bundle["applications"]
-    relations = bundle["relations"]
+def render_config(config: dict = {}):
+    config_string = ""
+    for k, v in config.items():
+        config_string += f'{k} = "{v}"' + "\n"
+    return config_string[:-1]
+
+
+def generate_applications_tf(applications):
     for app, info in applications.items():
+        # x = info["options"] if "options" in info else ""
+        charm_config = render_config(info["options"]) if "options" in info else ""
         params = {
             "app_name": app,
             "charm": info["charm"],
@@ -121,14 +151,21 @@ def generate_main(bundle: dict = {}):
             "channel_var": app.replace("-", "_"),
             "scale": info["scale"],
         }
-        console.print(TEMPLATE_APPLICATION.format(**params))
+        template = TEMPLATE_APPLICATION
+        if charm_config:
+            params["config"] = charm_config
+            template = TEMPLATE_APPLICATION_WITH_CONFIG
+        console.print(template.format(**params))
+
+
+def generate_integrations_tf(relations):
     for relation in relations:
         if ":" in relation[0]:
-            endpoint1 = relation[0].split(":")[1]
-            endpoint2 = relation[1].split(":")[1]
+            charm1, endpoint1 = relation[0].split(":")
+            charm2, endpoint2 = relation[1].split(":")
             params = {
-                "charm1": relation[0].split(":")[0],
-                "charm2": relation[1].split(":")[0],
+                "charm1": charm1,
+                "charm2": charm2,
                 "charm1_endpoint": endpoint1,
                 "charm2_endpoint": endpoint2,
                 "endpoint": endpoint1
@@ -143,6 +180,11 @@ def generate_main(bundle: dict = {}):
             }
             template = TEMPLATE_INTEGRATION_NO_ENDPOINTS
         console.print(template.format(**params))
+
+
+def generate_main(bundle: dict = {}):
+    generate_applications_tf(bundle["applications"])
+    generate_integrations_tf(bundle["relations"])
 
 
 if __name__ == "__main__":
