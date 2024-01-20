@@ -25,9 +25,10 @@ resource "juju_application" "grafana-agent-kf" {
   }
 
   units = 1
-  expose {}
 
-  depends_on = [juju_model.kubeflow]
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 
