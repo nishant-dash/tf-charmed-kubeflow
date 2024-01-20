@@ -5,6 +5,12 @@ resource "juju_model" "kubeflow" {
   cloud {
     name = var.kubeflow_cloud
   }
+
+  config = {
+    default-series = var.kubeflow_model_series
+  }
+
+  credential = var.kubeflow_cloud
 }
 
 # Grafana-agent-k8s

@@ -12,6 +12,12 @@ variable "kubeflow_cloud" {
   type        = string
 }
 
+variable "kubeflow_model_series" {
+  description = "Ubuntu series to use for the Kubeflow model"
+  type        = string
+  default     = "jammy"
+}
+
 variable "admission_webhook_channel" {
   description = "Charm channel of admission-webhook"
   type        = string
