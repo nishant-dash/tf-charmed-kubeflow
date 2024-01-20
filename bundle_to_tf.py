@@ -24,6 +24,10 @@ resource "juju_application" "{app_name}" {{
   }}
 
   units     = {scale}
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }}"""
 
 TEMPLATE_INTEGRATION = """

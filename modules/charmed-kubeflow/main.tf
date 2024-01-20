@@ -20,6 +20,8 @@ resource "juju_application" "grafana-agent-kf" {
 
   units = 1
   expose {}
+
+  depends_on = [juju_model.kubeflow]
 }
 
 
@@ -35,6 +37,10 @@ resource "juju_application" "admission-webhook" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "argo-controller" {
@@ -48,6 +54,10 @@ resource "juju_application" "argo-controller" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "dex-auth" {
@@ -61,6 +71,10 @@ resource "juju_application" "dex-auth" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "envoy" {
@@ -74,6 +88,10 @@ resource "juju_application" "envoy" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "istio-ingressgateway" {
@@ -87,6 +105,10 @@ resource "juju_application" "istio-ingressgateway" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "istio-pilot" {
@@ -100,6 +122,10 @@ resource "juju_application" "istio-pilot" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "jupyter-controller" {
@@ -113,6 +139,10 @@ resource "juju_application" "jupyter-controller" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "jupyter-ui" {
@@ -126,6 +156,10 @@ resource "juju_application" "jupyter-ui" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "katib-controller" {
@@ -139,6 +173,10 @@ resource "juju_application" "katib-controller" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "katib-db" {
@@ -152,6 +190,10 @@ resource "juju_application" "katib-db" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "katib-db-manager" {
@@ -165,6 +207,10 @@ resource "juju_application" "katib-db-manager" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "katib-ui" {
@@ -178,6 +224,10 @@ resource "juju_application" "katib-ui" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kfp-api" {
@@ -191,6 +241,10 @@ resource "juju_application" "kfp-api" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kfp-db" {
@@ -204,6 +258,10 @@ resource "juju_application" "kfp-db" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kfp-metadata-writer" {
@@ -217,6 +275,10 @@ resource "juju_application" "kfp-metadata-writer" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kfp-persistence" {
@@ -230,6 +292,10 @@ resource "juju_application" "kfp-persistence" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kfp-profile-controller" {
@@ -243,6 +309,10 @@ resource "juju_application" "kfp-profile-controller" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kfp-schedwf" {
@@ -256,6 +326,10 @@ resource "juju_application" "kfp-schedwf" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kfp-ui" {
@@ -269,6 +343,10 @@ resource "juju_application" "kfp-ui" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kfp-viewer" {
@@ -282,6 +360,10 @@ resource "juju_application" "kfp-viewer" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kfp-viz" {
@@ -295,6 +377,10 @@ resource "juju_application" "kfp-viz" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "knative-eventing" {
@@ -308,6 +394,10 @@ resource "juju_application" "knative-eventing" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "knative-operator" {
@@ -321,6 +411,10 @@ resource "juju_application" "knative-operator" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "knative-serving" {
@@ -334,6 +428,10 @@ resource "juju_application" "knative-serving" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kserve-controller" {
@@ -347,6 +445,10 @@ resource "juju_application" "kserve-controller" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kubeflow-dashboard" {
@@ -360,6 +462,10 @@ resource "juju_application" "kubeflow-dashboard" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kubeflow-profiles" {
@@ -373,6 +479,10 @@ resource "juju_application" "kubeflow-profiles" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kubeflow-roles" {
@@ -386,6 +496,10 @@ resource "juju_application" "kubeflow-roles" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "kubeflow-volumes" {
@@ -399,6 +513,10 @@ resource "juju_application" "kubeflow-volumes" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "metacontroller-operator" {
@@ -412,6 +530,10 @@ resource "juju_application" "metacontroller-operator" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "mlmd" {
@@ -425,6 +547,10 @@ resource "juju_application" "mlmd" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "minio" {
@@ -438,6 +564,10 @@ resource "juju_application" "minio" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "oidc-gatekeeper" {
@@ -451,6 +581,10 @@ resource "juju_application" "oidc-gatekeeper" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "pvcviewer-operator" {
@@ -464,6 +598,10 @@ resource "juju_application" "pvcviewer-operator" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "seldon-controller-manager" {
@@ -477,6 +615,10 @@ resource "juju_application" "seldon-controller-manager" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "tensorboard-controller" {
@@ -490,6 +632,10 @@ resource "juju_application" "tensorboard-controller" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "tensorboards-web-app" {
@@ -503,6 +649,10 @@ resource "juju_application" "tensorboards-web-app" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_application" "training-operator" {
@@ -516,6 +666,10 @@ resource "juju_application" "training-operator" {
   }
 
   units = 1
+
+  depends_on = [
+    juju_model.kubeflow
+  ]
 }
 
 resource "juju_integration" "argo-controller-minio" {
