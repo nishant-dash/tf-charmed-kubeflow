@@ -36,6 +36,12 @@ variable "microk8s_charm_channel" {
   default     = "1.28/stable"
 }
 
+variable "microk8s_lsb_base" {
+  description = "Ubuntu base to use for the Microk8s Charm"
+  type        = string
+  default     = "ubuntu@22.04"
+}
+
 variable "microk8s_units" {
   description = "Number of MicroK8s units"
   type        = number

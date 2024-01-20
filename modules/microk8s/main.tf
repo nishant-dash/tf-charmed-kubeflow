@@ -7,6 +7,7 @@ resource "juju_application" "microk8s" {
   charm {
     name    = "microk8s"
     channel = var.microk8s_charm_channel
+    base    = var.microk8s_lsb_base
   }
 
   config = {
@@ -16,7 +17,8 @@ resource "juju_application" "microk8s" {
     containerd_no_proxy    = var.no_proxy
   }
 
-  units = var.microk8s_units
+  units     = var.microk8s_units
+  placement = 0
   expose {}
 }
 

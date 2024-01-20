@@ -10,7 +10,7 @@ resource "null_resource" "node_setup" {
         ssh ubuntu@$(hostname -i | awk '{print $NF}') hostname
         juju bootstrap manual/ubuntu@$(hostname -i | awk '{print $NF}') localhost
         juju switch controller
-        juju status
+        juju status --format oneline
 EOF
   }
 }
