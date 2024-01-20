@@ -1,10 +1,10 @@
 variable "steps" {
   description = "List of bash commands to run to setup a node for Charmed Micok8s and Kubeflow"
-  type = list
+  type        = list(string)
   default = [
     "sudo snap install juju --channel=3.1/stable",
     "mkdir -p ~/.local/share/juju",
-    "ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa_juju",
+    "ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa_juju",
     "cat ~/.ssh/id_rsa_juju.pub >> ~/.ssh/authorized_keys",
     "ssh ubuntu@$(hostname -i | awk '{print $NF}')",
     "juju bootstrap manual/$(hostname -i | awk '{print $NF}') localhost"
