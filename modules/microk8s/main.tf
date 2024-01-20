@@ -7,7 +7,7 @@ resource "juju_application" "microk8s" {
   charm {
     name    = "microk8s"
     channel = var.microk8s_charm_channel
-    base    = var.microk8s_lsb_base
+    series  = var.microk8s_lsb_base
   }
 
   config = {
@@ -34,6 +34,7 @@ resource "juju_application" "grafana-agent" {
     channel = var.grafana_agent_charm_channel
   }
 
+  units = 0
   expose {}
 }
 
