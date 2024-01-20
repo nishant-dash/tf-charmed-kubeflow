@@ -5,19 +5,19 @@
 #             constrain to the k8s cluster
 ###################################################################################################
 variable "http_proxy" {
-  description = "MicroK8s HTTP Proxy"
+  description = "MicroK8s HTTP proxy"
   type        = string
   default     = "http://squid.internal:3128"
 }
 
 variable "https_proxy" {
-  description = "MicroK8s HTTPS Proxy"
+  description = "MicroK8s HTTPS proxy"
   type        = string
   default     = "http://squid.internal:3128"
 }
 
 variable "no_proxy" {
-  description = "MicroK8s Proxy Exclusions"
+  description = "MicroK8s proxy exclusions"
   type        = string
   default     = "127.0.0.1,10.0.0.0/8,192.168.0.0/16,172.16.0.0/12,rocks.canonical.com,10.152.183.0/24,.svc,.nip.io"
 }

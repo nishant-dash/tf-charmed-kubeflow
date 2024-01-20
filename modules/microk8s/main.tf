@@ -10,10 +10,10 @@ resource "juju_application" "microk8s" {
   }
 
   config = {
-    hostpath_storage             = var.microk8s_hostpath_storage
-    containerd_http_proxy        = local.http_proxy
-    containerd_https_proxy       = local.https_proxy
-    containerd_no_proxy          = local.no_proxy
+    hostpath_storage             = var.microk8s_addons_hostpath_storage
+    containerd_http_proxy        = var.http_proxy
+    containerd_https_proxy       = var.https_proxy
+    containerd_no_proxy          = var.no_proxy
   }
 
   units = var.microk8s_units
