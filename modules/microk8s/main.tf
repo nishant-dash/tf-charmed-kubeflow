@@ -43,11 +43,11 @@ resource "juju_integration" "microk8s-grafana-agent" {
 
   application {
     name     = juju_application.microk8s.name
-    endpoint = "cos_agent"
+    endpoint = "cos-agent"
   }
 
   application {
     name     = juju_application.grafana-agent.name
-    endpoint = "cos_agent"
+    endpoint = "cos-agent"
   }
 }
