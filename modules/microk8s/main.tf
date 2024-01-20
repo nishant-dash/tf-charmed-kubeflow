@@ -36,5 +36,15 @@ resource "juju_application" "grafana-agent" {
 }
 
 resource "juju_integration" "microk8s-grafana-agent" {
+  model = var.juju_model_name
 
+  application {
+    name     = juju_application.microk8s.name
+    endpoint = "cos_agent"
+  }
+
+  application {
+    name     = juju_application.grafana-agent.name
+    endpoint = "cos_agent"
+  }
 }
