@@ -27,7 +27,7 @@ resource "juju_application" "{app_name}" {{
 }}"""
 
 TEMPLATE_INTEGRATION = """
-resource "juju_integration" "{charm1}-{charm2}" {{
+resource "juju_integration" "{charm1}-{charm2}-{endpoint}" {{
   model = var.juju_model_name
 
   application {{
@@ -120,11 +120,16 @@ def generate_main(bundle: dict = {}):
         console.print(TEMPLATE_APPLICATION.format(**params))
     for relation in relations:
         if ":" in relation[0]:
+            endpoint1 = relation[0].split(":")[1]
+            endpoint2 = relation[1].split(":")[1]
             params = {
                 "charm1": relation[0].split(":")[0],
                 "charm2": relation[1].split(":")[0],
-                "charm1_endpoint": relation[0].split(":")[1],
-                "charm2_endpoint": relation[1].split(":")[1],
+                "charm1_endpoint": endpoint1,
+                "charm2_endpoint": endpoint2,
+                "endpoint": endpoint1
+                if endpoint1 == endpoint2
+                else endpoint1 + endpoint2,
             }
             template = TEMPLATE_INTEGRATION
         else:

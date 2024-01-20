@@ -1,3 +1,32 @@
+# Grafana-agent-k8s
+resource "juju_application" "grafana-agent-kf" {
+  name  = "grafana-agent-kf"
+  model = var.juju_model_name
+  trust = true
+
+  charm {
+    name    = "grafana-agent-k8s"
+    channel = var.grafana_agent_k8s_charm_channel
+  }
+
+  units = 1
+  expose {}
+}
+
+resource "juju_integration" "ckf-grafana-agent" {
+  model = var.juju_model_name
+
+  application {
+    name     = juju_application.microk8s.name
+    endpoint = "cos-agent"
+  }
+
+  application {
+    name     = juju_application.grafana-agent.name
+    endpoint = "cos-agent"
+  }
+}
+
 # Charmed Kubeflow
 resource "juju_application" "admission-webhook" {
   name  = "admission-webhook"
@@ -493,21 +522,6 @@ resource "juju_application" "training-operator" {
   units = 1
 }
 
-# grafana-agent-k8s
-resource "juju_application" "grafana-agent-kf" {
-  name  = "grafana-agent-kf"
-  model = var.juju_model_name
-  trust = true
-
-  charm {
-    name    = "grafana-agent-k8s"
-    channel = var.grafana_agent_k8s_charm_channel
-  }
-
-  units = 1
-  expose {}
-}
-
 resource "juju_integration" "argo-controller-minio" {
   model = var.juju_model_name
 
@@ -520,7 +534,7 @@ resource "juju_integration" "argo-controller-minio" {
   }
 }
 
-resource "juju_integration" "dex-auth-oidc-gatekeeper" {
+resource "juju_integration" "dex-auth-oidc-gatekeeper-oidc-client" {
   model = var.juju_model_name
 
   application {
@@ -534,7 +548,7 @@ resource "juju_integration" "dex-auth-oidc-gatekeeper" {
   }
 }
 
-resource "juju_integration" "istio-pilot-dex-auth" {
+resource "juju_integration" "istio-pilot-dex-auth-ingress" {
   model = var.juju_model_name
 
   application {
@@ -548,7 +562,7 @@ resource "juju_integration" "istio-pilot-dex-auth" {
   }
 }
 
-resource "juju_integration" "istio-pilot-envoy" {
+resource "juju_integration" "istio-pilot-envoy-ingress" {
   model = var.juju_model_name
 
   application {
@@ -562,7 +576,7 @@ resource "juju_integration" "istio-pilot-envoy" {
   }
 }
 
-resource "juju_integration" "istio-pilot-jupyter-ui" {
+resource "juju_integration" "istio-pilot-jupyter-ui-ingress" {
   model = var.juju_model_name
 
   application {
@@ -576,7 +590,7 @@ resource "juju_integration" "istio-pilot-jupyter-ui" {
   }
 }
 
-resource "juju_integration" "istio-pilot-katib-ui" {
+resource "juju_integration" "istio-pilot-katib-ui-ingress" {
   model = var.juju_model_name
 
   application {
@@ -590,7 +604,7 @@ resource "juju_integration" "istio-pilot-katib-ui" {
   }
 }
 
-resource "juju_integration" "istio-pilot-kfp-ui" {
+resource "juju_integration" "istio-pilot-kfp-ui-ingress" {
   model = var.juju_model_name
 
   application {
@@ -604,7 +618,7 @@ resource "juju_integration" "istio-pilot-kfp-ui" {
   }
 }
 
-resource "juju_integration" "istio-pilot-kubeflow-dashboard" {
+resource "juju_integration" "istio-pilot-kubeflow-dashboard-ingress" {
   model = var.juju_model_name
 
   application {
@@ -618,7 +632,7 @@ resource "juju_integration" "istio-pilot-kubeflow-dashboard" {
   }
 }
 
-resource "juju_integration" "istio-pilot-kubeflow-volumes" {
+resource "juju_integration" "istio-pilot-kubeflow-volumes-ingress" {
   model = var.juju_model_name
 
   application {
@@ -632,7 +646,7 @@ resource "juju_integration" "istio-pilot-kubeflow-volumes" {
   }
 }
 
-resource "juju_integration" "istio-pilot-oidc-gatekeeper" {
+resource "juju_integration" "istio-pilot-oidc-gatekeeper-ingress" {
   model = var.juju_model_name
 
   application {
@@ -646,7 +660,7 @@ resource "juju_integration" "istio-pilot-oidc-gatekeeper" {
   }
 }
 
-resource "juju_integration" "istio-pilot-oidc-gatekeeper" {
+resource "juju_integration" "istio-pilot-oidc-gatekeeper-ingress-auth" {
   model = var.juju_model_name
 
   application {
@@ -660,7 +674,7 @@ resource "juju_integration" "istio-pilot-oidc-gatekeeper" {
   }
 }
 
-resource "juju_integration" "istio-pilot-istio-ingressgateway" {
+resource "juju_integration" "istio-pilot-istio-ingressgateway-istio-pilot" {
   model = var.juju_model_name
 
   application {
@@ -674,7 +688,7 @@ resource "juju_integration" "istio-pilot-istio-ingressgateway" {
   }
 }
 
-resource "juju_integration" "istio-pilot-tensorboards-web-app" {
+resource "juju_integration" "istio-pilot-tensorboards-web-app-ingress" {
   model = var.juju_model_name
 
   application {
@@ -688,7 +702,7 @@ resource "juju_integration" "istio-pilot-tensorboards-web-app" {
   }
 }
 
-resource "juju_integration" "istio-pilot-tensorboard-controller" {
+resource "juju_integration" "istio-pilot-tensorboard-controller-gateway-info" {
   model = var.juju_model_name
 
   application {
@@ -702,7 +716,7 @@ resource "juju_integration" "istio-pilot-tensorboard-controller" {
   }
 }
 
-resource "juju_integration" "katib-db-manager-katib-db" {
+resource "juju_integration" "katib-db-manager-katib-db-relational-dbdatabase" {
   model = var.juju_model_name
 
   application {
@@ -716,7 +730,7 @@ resource "juju_integration" "katib-db-manager-katib-db" {
   }
 }
 
-resource "juju_integration" "kfp-api-kfp-db" {
+resource "juju_integration" "kfp-api-kfp-db-relational-dbdatabase" {
   model = var.juju_model_name
 
   application {
@@ -730,7 +744,7 @@ resource "juju_integration" "kfp-api-kfp-db" {
   }
 }
 
-resource "juju_integration" "kfp-api-kfp-persistence" {
+resource "juju_integration" "kfp-api-kfp-persistence-kfp-api" {
   model = var.juju_model_name
 
   application {
@@ -744,7 +758,7 @@ resource "juju_integration" "kfp-api-kfp-persistence" {
   }
 }
 
-resource "juju_integration" "kfp-api-kfp-ui" {
+resource "juju_integration" "kfp-api-kfp-ui-kfp-api" {
   model = var.juju_model_name
 
   application {
@@ -758,7 +772,7 @@ resource "juju_integration" "kfp-api-kfp-ui" {
   }
 }
 
-resource "juju_integration" "kfp-api-kfp-viz" {
+resource "juju_integration" "kfp-api-kfp-viz-kfp-viz" {
   model = var.juju_model_name
 
   application {
@@ -772,7 +786,7 @@ resource "juju_integration" "kfp-api-kfp-viz" {
   }
 }
 
-resource "juju_integration" "kfp-api-minio" {
+resource "juju_integration" "kfp-api-minio-object-storage" {
   model = var.juju_model_name
 
   application {
@@ -786,7 +800,7 @@ resource "juju_integration" "kfp-api-minio" {
   }
 }
 
-resource "juju_integration" "kfp-profile-controller-minio" {
+resource "juju_integration" "kfp-profile-controller-minio-object-storage" {
   model = var.juju_model_name
 
   application {
@@ -800,7 +814,7 @@ resource "juju_integration" "kfp-profile-controller-minio" {
   }
 }
 
-resource "juju_integration" "kfp-ui-minio" {
+resource "juju_integration" "kfp-ui-minio-object-storage" {
   model = var.juju_model_name
 
   application {
@@ -814,7 +828,7 @@ resource "juju_integration" "kfp-ui-minio" {
   }
 }
 
-resource "juju_integration" "kserve-controller-istio-pilot" {
+resource "juju_integration" "kserve-controller-istio-pilot-ingress-gatewaygateway-info" {
   model = var.juju_model_name
 
   application {
@@ -828,7 +842,7 @@ resource "juju_integration" "kserve-controller-istio-pilot" {
   }
 }
 
-resource "juju_integration" "kserve-controller-knative-serving" {
+resource "juju_integration" "kserve-controller-knative-serving-local-gateway" {
   model = var.juju_model_name
 
   application {
@@ -854,7 +868,7 @@ resource "juju_integration" "kubeflow-profiles-kubeflow-dashboard" {
   }
 }
 
-resource "juju_integration" "kubeflow-dashboard-jupyter-ui" {
+resource "juju_integration" "kubeflow-dashboard-jupyter-ui-linksdashboard-links" {
   model = var.juju_model_name
 
   application {
@@ -868,7 +882,7 @@ resource "juju_integration" "kubeflow-dashboard-jupyter-ui" {
   }
 }
 
-resource "juju_integration" "kubeflow-dashboard-katib-ui" {
+resource "juju_integration" "kubeflow-dashboard-katib-ui-linksdashboard-links" {
   model = var.juju_model_name
 
   application {
@@ -882,7 +896,7 @@ resource "juju_integration" "kubeflow-dashboard-katib-ui" {
   }
 }
 
-resource "juju_integration" "kubeflow-dashboard-kfp-ui" {
+resource "juju_integration" "kubeflow-dashboard-kfp-ui-linksdashboard-links" {
   model = var.juju_model_name
 
   application {
@@ -896,7 +910,7 @@ resource "juju_integration" "kubeflow-dashboard-kfp-ui" {
   }
 }
 
-resource "juju_integration" "kubeflow-dashboard-kubeflow-volumes" {
+resource "juju_integration" "kubeflow-dashboard-kubeflow-volumes-linksdashboard-links" {
   model = var.juju_model_name
 
   application {
@@ -910,7 +924,7 @@ resource "juju_integration" "kubeflow-dashboard-kubeflow-volumes" {
   }
 }
 
-resource "juju_integration" "kubeflow-dashboard-tensorboards-web-app" {
+resource "juju_integration" "kubeflow-dashboard-tensorboards-web-app-linksdashboard-links" {
   model = var.juju_model_name
 
   application {
@@ -924,7 +938,7 @@ resource "juju_integration" "kubeflow-dashboard-tensorboards-web-app" {
   }
 }
 
-resource "juju_integration" "mlmd-envoy" {
+resource "juju_integration" "mlmd-envoy-grpc" {
   model = var.juju_model_name
 
   application {
@@ -938,7 +952,7 @@ resource "juju_integration" "mlmd-envoy" {
   }
 }
 
-resource "juju_integration" "mlmd-kfp-metadata-writer" {
+resource "juju_integration" "mlmd-kfp-metadata-writer-grpc" {
   model = var.juju_model_name
 
   application {
@@ -949,19 +963,5 @@ resource "juju_integration" "mlmd-kfp-metadata-writer" {
   application {
     name     = juju_application.kfp-metadata-writer.name
     endpoint = "grpc"
-  }
-}
-
-resource "juju_integration" "ckf-grafana-agent" {
-  model = var.juju_model_name
-
-  application {
-    name     = juju_application.microk8s.name
-    endpoint = "cos-agent"
-  }
-
-  application {
-    name     = juju_application.grafana-agent.name
-    endpoint = "cos-agent"
   }
 }
