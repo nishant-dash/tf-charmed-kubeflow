@@ -29,6 +29,6 @@ resource "null_resource" "node_setup" {
   provisioner "local-exec" {
     interpreter = ["/bin/bash", "-c"]
     command     = "for step in $STEPS; do echo $step; done"
-    environment = { STEPS = join(" ", var.items) }
+    environment = { STEPS = join(" ", var.steps) }
   }
 }
