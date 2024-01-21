@@ -449,9 +449,9 @@ resource "juju_application" "knative-serving" {
   units = 1
 
   config = {
-    namespace               = "knative-serving"
-    istio.gateway.namespace = "kubeflow"
-    istio.gateway.name      = "kubeflow-gateway"
+    namespace                 = "knative-serving"
+    "istio.gateway.namespace" = "kubeflow"
+    "istio.gateway.name"      = "kubeflow-gateway"
   }
 
   depends_on = [
