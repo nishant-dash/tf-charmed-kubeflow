@@ -41,6 +41,13 @@ sudo microk8s.config > ~/.kube/config
 juju add-k8s mk8s-cloud --client --controller localhost
 ```
 
+> [!NOTE]
+> WIP: still automating this step to deploy metallb charm and enable ingress
+```sh
+sudo microk8s enable ingress
+sudo microk8s enable metallb:172.16.2.15-172.16.2.16
+```
+
 ### 2.3 Deploy charmed kubeflow
 ```
 cd modules/charmed-kubeflow/
