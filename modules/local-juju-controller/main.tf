@@ -17,7 +17,7 @@ resource "null_resource" "node_setup" {
         mkdir -p ~/.local/share/juju
         ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
         cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-        ssh ubuntu@$(hostname -i | awk '{print $NF}') hostname
+        ssh -o StrictHostKeyChecking=accept-new ubuntu@$(hostname -i | awk '{print $NF}') hostname
         juju bootstrap manual/ubuntu@$(hostname -i | awk '{print $NF}') localhost
         juju switch controller
         juju status --format oneline
