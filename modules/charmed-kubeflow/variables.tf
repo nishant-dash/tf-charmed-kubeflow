@@ -255,21 +255,3 @@ variable "grafana_agent_k8s_charm_channel" {
   type        = string
   default     = "latest/stable"
 }
-
-variable "subordinates_grafana_agent_dashboard_offer_url" {
-  description = "Offer URL for grafana-agent Dashboard integration"
-  type        = string
-  default     = ""
-}
-
-variable "subordinates_grafana_agent_loki_offer_url" {
-  description = "Offer URL for grafana-agent Loki integration"
-  type        = string
-  default     = ""
-}
-
-variable "subordinates_grafana_agent_prometheus_offer_url" {
-  description = "Offer URL for grafana-agent Prometheus integration"
-  type        = string
-  default     = ""
-}

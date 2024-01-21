@@ -54,48 +54,24 @@ variable "microk8s_addons_hostpath_storage" {
   default     = true
 }
 
-variable "microk8s_addons_dns" {
-  description = "Flag to enable dns add-on for MicroK8s"
-  type        = bool
-  default     = true
-}
+// variable "microk8s_addons_dns" {
+//   description = "Flag to enable dns add-on for MicroK8s"
+//   type        = bool
+//   default     = true
+// }
 
-variable "microk8s_addons_metallb" {
-  description = "Flag to enable metallb add-on for MicroK8s"
-  type        = bool
-  default     = true
-}
+// variable "microk8s_addons_metallb" {
+//   description = "Flag to enable metallb add-on for MicroK8s"
+//   type        = bool
+//   default     = true
+// }
 
 
 ###################################################################################################
 # Charmed MicroK8s subordinate info
 ###################################################################################################
-variable "subordinates_include_grafana_agent" {
-  description = "Include the grafana-agent subordinate"
-  type        = bool
-  default     = false
-}
-
 variable "grafana_agent_charm_channel" {
   description = "Include the grafana-agent subordinate"
   type        = string
   default     = "latest/stable"
-}
-
-variable "subordinates_grafana_agent_dashboard_offer_url" {
-  description = "Offer URL for grafana-agent Dashboard integration"
-  type        = string
-  default     = ""
-}
-
-variable "subordinates_grafana_agent_loki_offer_url" {
-  description = "Offer URL for grafana-agent Loki integration"
-  type        = string
-  default     = ""
-}
-
-variable "subordinates_grafana_agent_prometheus_offer_url" {
-  description = "Offer URL for grafana-agent Prometheus integration"
-  type        = string
-  default     = ""
 }
