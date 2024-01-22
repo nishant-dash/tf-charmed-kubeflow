@@ -3,3 +3,9 @@ variable "juju_channel" {
   type        = string
   default     = "3.1/stable"
 }
+
+variable "local_ip" {
+  description = "Local ip of machine, should not be loopback type"
+  type        = string
+  default     = "127.0.0.1"
+}
