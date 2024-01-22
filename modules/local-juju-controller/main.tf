@@ -44,7 +44,7 @@ resource "null_resource" "node_setup" {
           LOCAL_IP=$(ip route get 1 | awk '{for(i=1;i<=NF;i++) if($i~"src") print$(i+1)}')
         fi
 
-        echo Using $LOCAL_USER@$LOCAL_IP
+        echo Using $USER@$LOCAL_IP
         ssh -o StrictHostKeyChecking=accept-new $USER@$LOCAL_IP hostname
 
         sudo snap install juju --channel=$JUJU_CHANNEL_TO_USE
