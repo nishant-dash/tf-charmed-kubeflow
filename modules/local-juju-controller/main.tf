@@ -48,7 +48,7 @@ resource "null_resource" "node_setup" {
         ssh -o StrictHostKeyChecking=accept-new $USER@$LOCAL_IP hostname
 
         sudo snap install juju --channel=$JUJU_CHANNEL_TO_USE
-        mkdir -p ~/.local/share/juju
+        mkdir -p $HOME/.local/share/juju
         juju bootstrap manual/$USER@$LOCAL_IP localhost
         juju switch controller
         juju status --format oneline
